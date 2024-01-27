@@ -36,7 +36,7 @@ export class CreateCardUseCase {
       status,
       title,
       description,
-      user,
+      user_id: user.id,
     });
 
     return card;

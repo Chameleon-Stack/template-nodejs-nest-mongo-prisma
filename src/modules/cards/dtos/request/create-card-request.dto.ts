@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
-import { UserEntityInterface } from '../../../users/interfaces/user-entity.interface';
 
 export class CreateAndSaveCardDTO {
   @ApiProperty({
@@ -32,5 +31,5 @@ export class CreateAndSaveCardDTO {
     description: 'User',
   })
   @IsString()
-  readonly user: UserEntityInterface;
+  readonly user_id: string;
 }

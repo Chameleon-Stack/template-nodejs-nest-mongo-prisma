@@ -138,6 +138,16 @@ NODE_ENV=dev
 $ npm install
 ```
 
+### Add tables
+
+To add the project's tables to your database, it is necessary to make a POST request to the required table using one of the routes:
+
+```
+Create User table: POST  https://localhost:3333/user
+Create Card table: POST  https://localhost:3333/card/{user_id}
+Create Category table: POST  https://localhost:3333/category/{user_id}
+```
+
 ## Running the app
 
 ```bash

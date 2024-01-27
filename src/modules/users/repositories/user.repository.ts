@@ -14,7 +14,7 @@ export class UserRepository implements UserRepositoryInterface {
 
   async updateAndSave(user: UserEntityInterface): Promise<UserEntityInterface> {
     return this.prisma.user.update({
-      where: { _id: user.id },
+      where: { id: user.id },
       data: user,
     });
   }
@@ -24,12 +24,12 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async findById(id: string): Promise<UserEntityInterface | null> {
-    return this.prisma.user.findUnique({ where: { _id: id } });
+    return this.prisma.user.findUnique({ where: { id } });
   }
 
   async deleteUser(user: UserEntityInterface): Promise<void> {
     await this.prisma.user.delete({
-      where: { _id: user.id },
+      where: { id: user.id },
     });
   }
 }

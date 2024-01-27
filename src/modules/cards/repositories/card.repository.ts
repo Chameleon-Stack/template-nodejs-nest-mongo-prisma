@@ -11,27 +11,29 @@ export class CardRepository implements CardRepositoryInterface {
     description,
     status,
     title,
-    user,
+    user_id,
   }: CreateAndSaveCardDTO): Promise<CardEntityInterface> {
     return this.prisma.cards.create({
       data: {
         description,
         status,
         title,
-        user: { connect: { id: user.id } },
+        user_id,
+        created_at: new Date(),
+        updated_at: new Date(),
       },
     });
   }
 
   async updateAndSave(card: CardEntityInterface): Promise<CardEntityInterface> {
     return this.prisma.cards.update({
-      where: { _id: card.id },
+      where: { id: card.id },
       data: card,
     });
   }
 
   async findById(id: string): Promise<CardEntityInterface | null> {
-    return this.prisma.cards.findUnique({ where: { _id: id } });
+    return this.prisma.cards.findUnique({ where: { id: id } });
   }
 
   async findAll({
@@ -44,7 +46,7 @@ export class CardRepository implements CardRepositoryInterface {
     return this.prisma.cards.findMany({
       where: {
         user: { id: user_id },
-        _id: id ? { equals: id } : undefined,
+        id: id ? { equals: id } : undefined,
         description: description
           ? { contains: description.toLowerCase() }
           : undefined,
@@ -56,7 +58,7 @@ export class CardRepository implements CardRepositoryInterface {
 
   async deleteCard(card: CardEntityInterface): Promise<void> {
     await this.prisma.cards.delete({
-      where: { _id: card.id },
+      where: { id: card.id },
     });
   }
 }

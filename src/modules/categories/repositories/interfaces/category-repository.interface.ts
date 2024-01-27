@@ -1,10 +1,9 @@
-import { UserEntityInterface } from '../../../users/interfaces/user-entity.interface';
 import { CategoryEntityInterface } from '../../interfaces/category-entity.interface';
 
 export interface CategoryRepositoryInterface {
   createAndSave(
     name: string,
-    user: UserEntityInterface,
+    user_id: string,
   ): Promise<CategoryEntityInterface>;
   findAll(user_id: string, name?: string): Promise<CategoryEntityInterface[]>;
   findById(id: string): Promise<CategoryEntityInterface>;

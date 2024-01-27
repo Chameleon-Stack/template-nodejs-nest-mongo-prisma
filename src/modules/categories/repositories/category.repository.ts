@@ -7,12 +7,14 @@ export class CategoryRepository implements CategoryRepositoryInterface {
 
   async createAndSave(
     name: string,
-    user: any,
+    user_id: string,
   ): Promise<CategoryEntityInterface> {
     return this.prisma.category.create({
       data: {
         name,
-        user: { connect: { id: user.id } },
+        user_id: user_id,
+        created_at: new Date(),
+        updated_at: new Date(),
       },
     });
   }
