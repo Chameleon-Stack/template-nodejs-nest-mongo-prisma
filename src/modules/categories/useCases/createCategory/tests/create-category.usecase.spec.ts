@@ -24,6 +24,7 @@ describe('Create category UseCase', () => {
           provide: UserRepository,
           useValue: {
             findById: jest.fn(),
+            updateAndSave: jest.fn(),
           },
         },
       ],

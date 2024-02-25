@@ -30,10 +30,16 @@ export class CreateCategoryUseCase {
       throw new NotFoundException('User does not exists!');
     }
 
+    user.category_ids = user.category_ids || [];
+
     const card = await this.categoryRepository.createAndSave(
       { name, color },
       user.id,
     );
+
+    user.category_ids.push(card.id);
+
+    await this.userRepository.updateAndSave(user);
 
     return card;
   }

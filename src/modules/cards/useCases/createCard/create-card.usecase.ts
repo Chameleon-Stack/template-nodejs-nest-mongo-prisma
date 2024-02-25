@@ -39,6 +39,11 @@ export class CreateCardUseCase {
       user_id: user.id,
     });
 
+    user.card_ids = user.card_ids || [];
+    user.card_ids.push(card.id);
+
+    await this.userRepository.updateAndSave(user);
+
     return card;
   }
 }
