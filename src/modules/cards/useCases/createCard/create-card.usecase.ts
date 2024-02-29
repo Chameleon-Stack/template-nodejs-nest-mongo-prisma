@@ -21,6 +21,7 @@ export class CreateCardUseCase {
     description,
     title,
     status,
+    category_ids,
   }: CreateCardDTO): Promise<CardEntityInterface> {
     if (!user_id || !description || !title || !status) {
       throw new BadRequestException('Error in the creation of the card!');
@@ -37,6 +38,7 @@ export class CreateCardUseCase {
       title,
       description,
       user_id: user.id,
+      category_ids: category_ids,
     });
 
     user.card_ids = user.card_ids || [];
