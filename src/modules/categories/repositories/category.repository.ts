@@ -27,7 +27,7 @@ export class CategoryRepository implements CategoryRepositoryInterface {
   ): Promise<CategoryEntityInterface[]> {
     return this.prisma.category.findMany({
       where: {
-        user: { id: user_id },
+        user_id,
         name: name ? { contains: name.toLowerCase() } : undefined,
       },
     });

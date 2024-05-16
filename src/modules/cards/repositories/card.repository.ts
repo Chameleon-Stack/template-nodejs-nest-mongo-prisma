@@ -12,6 +12,7 @@ export class CardRepository implements CardRepositoryInterface {
     status,
     title,
     user_id,
+    category_ids,
   }: CreateAndSaveCardDTO): Promise<CardEntityInterface> {
     return this.prisma.cards.create({
       data: {
@@ -19,6 +20,7 @@ export class CardRepository implements CardRepositoryInterface {
         status,
         title,
         user_id,
+        category_ids,
         created_at: new Date(),
         updated_at: new Date(),
       },
@@ -37,26 +39,20 @@ export class CardRepository implements CardRepositoryInterface {
   }
 
   async findById(id: string): Promise<CardEntityInterface | null> {
-    const cards = await this.prisma.cards.findUnique({ where: { id: id } });
+    const card = await this.prisma.cards.findUnique({ where: { id: id } });
 
-    const cardsWithCategories = (await Promise.all(
-      cards.map(async (card) => {
-        const categories = await this.prisma.category.findMany({
-          where: {
-            id: {
-              in: card.category_ids,
-            },
-          },
-        });
+    const categories = await this.prisma.category.findMany({
+      where: {
+        id: {
+          in: card.category_ids,
+        },
+      },
+    });
 
-        return {
-          ...card,
-          categories,
-        };
-      }),
-    )) as any;
-
-    return cardsWithCategories;
+    return {
+      ...card,
+      categories,
+    };
   }
 
   async findAll({
@@ -68,7 +64,7 @@ export class CardRepository implements CardRepositoryInterface {
   }: FindAllCardsDTO): Promise<CardEntityInterface[]> {
     return this.prisma.cards.findMany({
       where: {
-        user: { id: user_id },
+        user_id: { equals: user_id },
         id: id ? { equals: id } : undefined,
         description: description
           ? { contains: description.toLowerCase() }
