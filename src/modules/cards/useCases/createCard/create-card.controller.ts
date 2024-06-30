@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  Param,
-  ParseUUIDPipe,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { BaseControllerInterface } from '../../../../common/interfaces/base-controller.interface';
 import { CustomApiResponseGetDataWrapper } from '../../../../system/decorators/swagger/api-response-get.decorator';
@@ -28,7 +21,7 @@ export class CreateCardController implements BaseControllerInterface {
     type: CardEntityDTO,
   })
   public async handle(
-    @Param('user_id', new ParseUUIDPipe()) user_id: string,
+    @Param('user_id') user_id: string,
     @Body() card: CreateCardDTO,
   ): Promise<CardEntityInterface> {
     return this.createCardUseCase.execute({ ...card, user_id });
