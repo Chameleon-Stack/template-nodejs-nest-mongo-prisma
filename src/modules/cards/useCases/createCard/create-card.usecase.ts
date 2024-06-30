@@ -37,7 +37,7 @@ export class CreateCardUseCase {
       status,
       title,
       description,
-      user_id: user.id,
+      user_id: user_id,
       category_ids: category_ids || [],
     });
 

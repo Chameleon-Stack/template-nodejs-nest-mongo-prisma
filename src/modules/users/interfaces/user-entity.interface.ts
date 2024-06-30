@@ -8,7 +8,7 @@ export interface UserEntityInterface {
   name: string;
   email: string;
   password: string;
-  photo: string;
+  photo: string | null;
   category?: CategoryEntityInterface[];
   category_ids?: string[];
   cards?: CardEntityInterface[];

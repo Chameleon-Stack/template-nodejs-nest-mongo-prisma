@@ -10,9 +10,11 @@ export class UserRepository implements UserRepositoryInterface {
     });
   }
 
-  async updateAndSave(user: UserEntityInterface): Promise<UserEntityInterface> {
+  async updateAndSave(data: UserEntityInterface): Promise<UserEntityInterface> {
+    const { id, ...user } = data;
+
     return prisma.user.update({
-      where: { id: user.id },
+      where: { id },
       data: user,
     });
   }
