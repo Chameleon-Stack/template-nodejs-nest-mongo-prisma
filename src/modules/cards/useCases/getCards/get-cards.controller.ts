@@ -28,7 +28,7 @@ export class GetCardsController implements BaseControllerInterface {
     type: CardEntityDTO,
   })
   public async handle(
-    @Param('user_id', new ParseUUIDPipe()) user_id: string,
+    @Param('user_id') user_id: string,
     @Query() data: FindAllCardsRequestDTO,
   ): Promise<CardEntityInterface[]> {
     return this.getCardsUseCase.execute({ ...data, user_id });
